@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
+import { Component, OnInit, Input } from '@angular/core';
+import { Dish } from '../shared/dish';
 
 const DISH = {
   id: '0',
@@ -52,7 +53,10 @@ const DISH = {
   styleUrls: ['./dishdetail.component.scss']
 })
 export class DishdetailComponent implements OnInit {
-  dish = DISH;
+ 
+  @Input()
+  dish: Dish;
+  
   constructor() { }
 
   ngOnInit(): void {
