@@ -17,8 +17,8 @@
 
 </div>
 -->
-<div  class="divv" width="40%">
-  <div fxFlex *ngIf="dish" width="100px">
+<div  class="divv" width="40%" fxFlex *ngIf="dish">
+  <div  width="100px">
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -32,9 +32,13 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
+        <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
         <button mat-button (click)="goBack()">BACK</button>
         <button mat-button>LIKE</button>
         <button mat-button>SHARE</button>
+        <span class="flex-spacer"></span>
+        <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
+      
       </mat-card-actions>
     </mat-card>
   </div>
