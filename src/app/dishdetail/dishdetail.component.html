@@ -63,4 +63,28 @@
     </mat-grid-list>
   </div>
   </div>
+
+ <div id="content2"  >
+    <h3>Send us your Feedback</h3>
+    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }} </p>
+
+    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="author" placeholder="First Name" type="text" required>
+          <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
+        </mat-form-field>
+        
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="comment" placeholder="Your Feedback" rows=12></textarea>
+        </mat-form-field>
+      </p>
+      
+      <p>
+      <mat-slider formControlName="rating" min="1" max="5" step="1" value="2"    thumbLabel      aria-label="units"></mat-slider>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+    </form>
+  </div>
   
