@@ -18,11 +18,11 @@ import { baseURL } from '../shared/baseurl';
 
 export class MenuComponent implements OnInit {
   dishes: Dish[] = DISHES;
-
+  errMess: string;
   constructor(private dishService: DishService, @Inject('baseURL') public BaseURL)  { }
 
   ngOnInit(): void {
-    this.dishService.getDishes().subscribe(dishes => this.dishes = dishes);
+    this.dishService.getDishes().subscribe(dishes => this.dishes = dishes,errmess => this.errMess = <any>errmess);
 
   }
 

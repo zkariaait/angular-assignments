@@ -81,6 +81,8 @@ export class DishdetailComponent implements OnInit {
   comment: Comment;
   feedbackForm: FormGroup;
   selectDish: Dish;
+  errMess: string;
+  dishcopy: Dish;
   
  
   @ViewChild('fform') feedbackFormDirective;
@@ -111,9 +113,10 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
-  
+    this.route.params
+      .pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
+        errmess => this.errMess = <any>errmess );
  // this.dish = this.dishservice.getDish(id);
 }
 createForm() {
@@ -161,8 +164,14 @@ onSubmit() {
   this.feedbackForm.get('date')?.setValue((new Date()).toISOString());
   this.comment = this.feedbackForm.value;
   console.log(this.comment);
-  this.dish.comments.push(this.comment);
+  this.dishcopy.comments.push(this.comment);
   console.log(this.comment);
+  this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+      errmess => { this.dish != null; this.dishcopy != null; this.errMess = <any>errmess; });
+    
  // DISH[index].comments.push({author :this.comment.})
   this.feedbackForm.reset({
     author: '',

@@ -8,10 +8,12 @@
       <hr>
     </div>
   </div>
-
-  <div fxFlex *ngIf="dishes">
+<div>
+  <div *ngIf="dishes" fxFlex>
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail',dish.id]">
+
+      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight>
+
         <img height="200px" src="{{BaseURL + dish.image }}" alt={{dish.name}}>
         <mat-grid-tile-footer>
           <h1>{{dish.name | uppercase}}</h1>
@@ -19,34 +21,17 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-  <div [hidden]="dishes">
+
+  <div [hidden]="dishes" fxflex>
     <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
   </div>
 
-<!--
-
-  <div fxFlex *ngIf="selectedDish">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          <h3>{{selectedDish.name | uppercase}}</h3>
-        </mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src={{selectedDish.image}} alt={{selectedDish.name}}>
-      <mat-card-content>
-        <p>{{selectedDish.description}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIiKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-  </div> -->
-
-
-  
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
  
-
 </div>
 
+
+</div>
